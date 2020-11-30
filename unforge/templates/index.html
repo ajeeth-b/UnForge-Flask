@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}UnForge{% endblock %}</title>
+</head>
+<body>
+	<div id="nav">
+		<ul>
+		  <li><a href="/">UnForge</a></li>
+		  <li><a href="/find_plagiarism">Try here</a></li>
+		  {% if prev_result %}<li><a href="/result">Previous Result</a></li>{% endif%}
+		</ul>
+	</div>
+	{% block content %}
+	<script>    
+	     window.setTimeout(function(){
+	       window.location.href = "/find_plagiarism";
+	       }, 500000);
+ 	</script>
+	<div>
+		<h1 style="text-align: center;">UnForge - A source code plagiarism detector </h1>
+		<ol>
+			<li>
+				<p>UnForge supports the following langages:</p></li>
+				<ul>
+					<li><b>	Python3</b></li>
+					<li><b>	Java (9+)</b></li>
+					<li><b>	C</b></li>
+					<li><b>	C++ (14)</b></li>
+					<li><b>	Javascript</b></li>
+				</ul>
+				<p>New languages comming soon :).</p>
+			</li>
+			<li>
+				<p>Hilights the copied line.</p>
+			</li>
+			<li>
+				<p>Instant Result</p>
+			</li>
+			<li>
+				<p>Can see the previous test result.</p>
+			</li>
+			<li>
+				<p>API Support available. visit <a href="/_unforge"> API </a></p>
+			</li>
+		</ol>
+		<p><a href = '/find_plagiarism'>click here</a> to use it<p>
+	</div>
+	{% endblock %}
+	<style>
+		
+		#nav ul {
+		  list-style-type: none;
+		  margin: 0;
+		  padding: 0;
+		  overflow: hidden;
+		  background-color: #333;
+		}
+
+		#nav li {
+		  float: left;
+		}
+
+		#nav li a {
+		  display: block;
+		  color: white;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		}
+
+		#nav li a:hover {
+		  background-color: #46ABC4;
+		}
+	</style>
+</body>
+</html>

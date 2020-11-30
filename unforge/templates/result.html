@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div> 
+	<h3>{{file1_name}} copied of {{percent}} % from {{file2_name}}  </h3> 
+	<h5> {{message}} </h5>
+</div>
+	<div style="float: left;width:48%;overflow: scroll;border:1px solid black;">
+		<pre>{%for i, val in code1%}
+  {{i}}: {% if i in code1_hilights %}<span style="background-color:#ec4343">{% else %}<span>{% endif %}{{val}}</span>{% endfor %}</pre>
+	</div>
+	<div style="float: right;width:48%;overflow: scroll;border:1px solid black;">
+			<pre>{%for i, val in code2%}
+  {{i}}: {% if i in code2_hilights %}<span style="background-color:#ec4343">{% else %}<span>{% endif %}{{val}}</span>{% endfor %}</pre>
+{% endblock %}

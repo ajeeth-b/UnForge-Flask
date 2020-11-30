@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<br>
+<form action="/result" method="POST" enctype="multipart/form-data">
+	<label for='language'>Choose a language:  </label>
+	<select id = 'language' name = 'language' required>
+		<option value="python">Python     </option>
+		<option value="c">C</option>
+		<option value="cpp">C++</option>
+		<option value="java">Java</option>
+		<option value="js">Javascript</option>
+	</select>
+	<br><br>
+
+	<label for = 'code1'>File to be compared     </label>
+	<br>
+	<input id = 'code1' type="file" name="code1" required>
+	<br><br>
+
+	<label for = 'code2'>Compared with     </label>
+	<br>
+	<input id = 'code2' type="file" name="code2" required>
+	<br><br>
+
+	<br><input type="submit">
+
+</form>
+{% endblock %}
