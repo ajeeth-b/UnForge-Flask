@@ -13,4 +13,7 @@ def create_app():
 		from .plagiarism import plag
 		app.register_blueprint(plag)
 
+		from .review import review
+		app.register_blueprint(review)
+
 	return app

@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div>
+	<h1 style="text-align: center;">Your review values the most :)</h1>
+	<div style="padding-left: 80px">
+		<form id = 'review_form' method="POST" action="/review">
+			<p>Your review please,</p>
+			<textarea form = 'review_form' id="review" name="review" rows="4" cols="50" placeholder="Please write your review or requirements and help UnForge to be better." required></textarea>
+
+			<br><br><p>Sincerly,</p>
+			<input type="text" name="name" placeholder="Anonymus">
+			<br><br><p>Mail ID</p>
+			<input type="email" name="email" placeholder="optional">
+			<br><br><input type="submit" name="send" value="send 😻">
+		</form>
+	</div>
+</div>
+{% endblock %}

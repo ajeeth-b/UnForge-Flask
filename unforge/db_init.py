@@ -14,4 +14,5 @@ dynamodb = boto3.resource(
 	)
 
 data_table = dynamodb.Table('UnForge')
+review_table = dynamodb.Table('UnForgeReview')
 _save_space = app.config['SAVE_SPACE_IN_DYNAMO_DB']
