@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div>
+	<h2 style="text-align: center;">You can use UnForge as API</h2>
+	<p><b> Posting data:</b></p>
+	<ul>
+		<li>
+			<p>Post the data as <i>" multipart/form-data "</i> to <i>" {{api_post_url}} "</i>.</p>
+		</li>
+		<li><p>The <i>" multipart/form-data "</i> should contain: </p></li>
+		<ol>
+			<li><p> A field called <i> 'langauge'</i> indicating what type of code you need to check.</p></li>
+			<li><p>Two files as <i>'BLOB</i> with following names:</p></li>
+			<ol style="list-style: none;" id = 'arrowTag'>
+				<li><p> &#8611;  <i>'code_to_be_compared'</i></p></li>
+				<li><p> &#8611;  <i>'code_compared_with'</i></p></li>
+			</ol>
+		</ol>
+	</ul>
+	<p><b> Response:</b></p>
+	<ul>
+		<li style="list-style: none;">&#9733; Response will be in JSON with following data <b>if no error </b> in input.</li>
+		<ol>
+			<li>
+				<p><i> "percentage"</i>:</p>
+				<p>
+					&emsp;&emsp;An 'INTEGER' datatype has the percentage of code in <i>'code_to_be_compared'</i> that is taken from <i>'code_compared_with'.</i>
+				</p>
+			</li>
+			<li>
+				<p><i> "line_map"</i>:</p>
+				<p>
+					&emsp;&emsp;A JSON object that map's line numbers in <i>'code_to_be_compared'</i> to  line number in <i>'code_compared_with'</i> which represents from which line the current line taken from.
+				</p>
+				<p>
+					&emsp;&emsp;For example: {"1":"3","2":"4"} represents line "1" in <i>'code_to_be_compared'</i> is copied from line "3" from <i>'code_compared_with'</i> similarly line "2" to line "4".
+				</p>
+			</li>
+			<li>
+				<p><i> "message"</i></p>
+				<p>
+					&emsp;&emsp;This contains the view of UnForge about the result.(you can ignore this messages).
+				</p>
+			</li>
+		</ol>
+		<li style="list-style: none;">
+			<p>&#9733; If any <b>error</b> in the input then it contains a single field:</p>
+			<ol>
+				<li>	
+					<p><i>"error"</i> :</p>
+					<p>It contains what error in the given input.</p>
+				</li>
+				<li style="list-style: none;"> Errors may raise due to given language type and file type or missmatch in two file type. If any internal error we will be notified and it we will be fixed shortly :).</li>
+			</ol>
+		</li>
+		<br>
+		<li>
+			<p><b>Proper response sample:</b></p>
+<pre><div style="border: 1px;background-color: #F7F4E3;display: inline-block; padding: 5px;padding-right: 18px;box-shadow: 10px 10px 5px #aaaaaa;">
+  {
+  	"percentage" : 100,
+
+  	"line_map" : {
+  	  "1" : "2",
+  	  "2" : "3",
+  	  "3" : "4",
+  	  "6" : "9",
+  	  "7" : "9"
+  	}
+
+  	"message" : "UnForge Thinks that the two code may be same in logic but differs by code"
+  }	
+</div></pre>
+		</li>
+		<li>
+			<p><b>Error response sample:</b></p>
+<pre><div style="border: 1px;background-color: #F7F4E3;display: inline-block; padding: 5px;padding-right: 18px;box-shadow: 10px 10px 5px #aaaaaa;">
+  {
+  	"error" : "Please enter the files with proper extension"
+  }	
+</div></pre>
+		</li>
+	</ul>
+</div>
+{% endblock %}
