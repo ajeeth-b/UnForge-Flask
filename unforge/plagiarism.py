@@ -4,13 +4,14 @@ from .drive import find_plagiarism, UnForgeInputError
 from datetime import datetime, timedelta
 import json
 from boto3.dynamodb.conditions import Key
-from .db_init import data_table, review_table, _save_space
+from .db_init import data_table, review_table
+from .decorators import login_required
 
 plag = Blueprint('Plagiarism', __name__)
 
-@plag.route('/find_plagiarism')
+@plag.route('/find_plagiarism/')
 def detect_with_file():
-	return render_template('file_upload.html', prev_result = request.cookies.get('timestamp_id'))
+	return render_template('plagiarism/file_upload.html', prev_result = request.cookies.get('timestamp_id'))
 
 @plag.route('/result', methods = ['POST'])
 def find_plagiarism_for_code():
@@ -53,9 +54,8 @@ def find_plagiarism_for_code():
 		data_table.put_item(Item = item)
 	except Exception as e:
 		print(e)
-		pass
 
-	response = make_response(render_template('result.html', file1_name = code1.filename, file2_name = code2.filename,
+	response = make_response(render_template('plagiarism/result.html', file1_name = code1.filename, file2_name = code2.filename,
 		percent = percentage, message = message, code1 = code1_content, code2 = code2_content,
 		code1_hilights = line_map.keys(), code2_hilights = line_map.values(),
 		prev_result = request.cookies.get('timestamp_id'))
@@ -69,7 +69,9 @@ def find_plagiarism_for_code():
 	response.set_cookie('timestamp_id', timestamp)
 	return response
 
-@plag.route('/result', methods = ['GET'])
+
+@plag.route('/result/', methods = ['GET'])
+@login_required
 def show_plagiarism_result():
 	timestamp = request.cookies.get('timestamp_id')
 	if timestamp is None:
@@ -91,6 +93,6 @@ def show_plagiarism_result():
 	code1_content = [(i+1, v) for i,v in enumerate(result['code1'])]
 	code2_content = [(i+1, v) for i,v in enumerate(result['code2'])]
 
-	return render_template('result.html', file1_name = result['code1_name'], file2_name = result['code2_name'],
+	return render_template('plagiarism/result.html', file1_name = result['code1_name'], file2_name = result['code2_name'],
 		percent = result['percentage'], message = result['message'], code1 = code1_content, code2 = code2_content,
 		code1_hilights = [int(i) for i in result['line_map'].keys()], code2_hilights = [int(i) for i in result['line_map'].values()])

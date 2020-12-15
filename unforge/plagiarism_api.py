@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify, render_template
 from .drive import find_plagiarism, UnForgeInputError
-
+from .decorators import login_required
 
 plag_api  =Blueprint('Plagiarism Api', __name__)
 
-@plag_api.route('/_unforge', methods = ['GET'])
+
+@plag_api.route('/_unforge/', methods = ['GET'])
+@login_required
 def unforge_api_description():
-	return render_template('api_description.html', api_post_url = request.url, prev_result = request.cookies.get('timestamp_id'))
+	return render_template('plagiarism/api_description.html', api_post_url = request.url, prev_result = request.cookies.get('timestamp_id'))
 
 
 @plag_api.route('/_unforge', methods = ['POST'])
@@ -25,6 +27,7 @@ def unforge_api():
 	code_compared_with = request.files['code_compared_with']
 	code2 = [str(i, 'utf-8') for i in code_compared_with.stream.readlines()]
 	code2 = [(i+1, v) for i,v in enumerate(code2)]
+	
 
 	try:
 		percentage, line_map, message, file_extension = find_plagiarism(request.form['language'], 

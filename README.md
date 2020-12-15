@@ -11,6 +11,6 @@ UnForge detects plagiarism in various languages like
 - JavaScript
  and many more languages will be added soon.
 
-[Click here](https://unforge.pythonanywhere.com/) and try it.
+[Click here](http://pyplag.pythonanywhere.com/) and try it.
 
 <sub>NOTE: The plagiarism detection module(unforge_plag) is not included in this repo.</sup>

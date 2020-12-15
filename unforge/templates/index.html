@@ -6,50 +6,75 @@
 <body>
 	<div id="nav">
 		<ul>
-		  <li><a href="/">UnForge</a></li>
+		  <li><a href="/">UnForge<span style="font-size: 10px">(beta)</span></a></li>
 		  <li><a href="/find_plagiarism">Try here</a></li>
 		  <li><a href="/_unforge">API</a></li>
 		  {% if prev_result %}<li><a href="/result">Previous Result</a></li>{% endif%}
-		  <li style="float: right;padding-right: 50px;" ><a href="/review" >Write Your Review 😁</a></li>
+		  {% if 'logged_in' in session%}
+		  <li style="float: right;padding-right: 30px;" ><a href="/logout" >Logout</a></li>
+		  {% else %}
+		  <li style="float: right;padding-right: 50px;" ><a href="/login" >LogIn/SignUp</a></li>
+		  {% endif %}
+
+		  <li style="float: right" ><a href="/review" >Write Your Review 😁</a></li>
 		</ul>
 	</div>
-	{% block content %}
-	<script>    
-	     window.setTimeout(function(){
-	       window.location.href = "/find_plagiarism";
-	       }, 500000);
- 	</script>
-	<div>
-		<h1 style="text-align: center;">UnForge - A source code plagiarism detector </h1>
-		<ol>
-			<li>
-				<p>UnForge supports the following langages:</p></li>
-				<ul>
-					<li><b>	Python3</b></li>
-					<li><b>	Java (9+)</b></li>
-					<li><b>	C</b></li>
-					<li><b>	C++ (14)</b></li>
-					<li><b>	Javascript</b></li>
-				</ul>
-				<p>New languages comming soon :).</p>
-			</li>
-			<li>
-				<p>Hilights the copied line.</p>
-			</li>
-			<li>
-				<p>Instant Result</p>
-			</li>
-			<li>
-				<p>Can see the previous test result.</p>
-			</li>
-			<li>
-				<p>API Support available. visit <a href="/_unforge"> API </a></p>
-			</li>
-		</ol>
-		<p><a href = '/find_plagiarism'>click here</a> to use it<p>
+	<div style="padding: 1px; margin: 10px; margin-left: 20px;">
+		{% block content %}
+		<script>    
+		     window.setTimeout(function(){
+		       window.location.href = "/find_plagiarism";
+		       }, 500000);
+	 	</script>
+		<div>
+			<h1 style="text-align: center;">UnForge <span style="font-size: 15px">(beta)</span> - A source code plagiarism detector </h1>
+			<ol>
+				<li>
+					<p>UnForge supports the following langages:</p></li>
+					<ul>
+						<li><b>	Python3</b></li>
+						<li><b>	Java (9+)</b></li>
+						<li><b>	C</b></li>
+						<li><b>	C++ (14)</b></li>
+						<li><b>	Javascript</b></li>
+					</ul>
+					<p>New languages comming soon :).</p>
+				</li>
+				<li>
+					<p>Hilights the copied line.</p>
+				</li>
+				<li>
+					<p>Instant Result</p>
+				</li>
+				<li>
+					<p>Can see the previous test result.</p>
+				</li>
+				<li>
+					<p>API Support available. visit <a href="/_unforge"> API </a></p>
+				</li>
+			</ol>
+			<p><a href = '/find_plagiarism'>click here</a> to use it</p>
+		</div>
+		{% endblock %}
 	</div>
-	{% endblock %}
 	<style>
+		@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
+
+		body {
+		  margin: 0;
+		  padding: 0; 
+		}
+
+		a {
+		  color: #666;
+		  text-decoration: none; }
+		  a:hover {
+		    color: #4FDA8C; }
+
+		body {
+		  color: #666;
+		  background-color: #f1f2f2;
+		  font: 16px/26px "Raleway", sans-serif; }
 		
 		#nav ul {
 		  list-style-type: none;

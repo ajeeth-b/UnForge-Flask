@@ -4,11 +4,11 @@ from datetime import datetime
 
 review = Blueprint("Review", __name__)
 
-@review.route('/review')
+@review.route('/review/')
 def review_page():
-	return render_template('review.html', prev_result = request.cookies.get('timestamp_id'))
+	return render_template('review/review.html', prev_result = request.cookies.get('timestamp_id'))
 
-@review.route('/review', methods = ['POST'])
+@review.route('/review/', methods = ['POST'])
 def get_review():
 	timestamp = request.cookies.get('timestamp_id')
 
@@ -21,4 +21,4 @@ def get_review():
 		item['email'] = request.form['email']
 	review_table.put_item(Item = item)
 
-	return render_template('review_thank.html', prev_result = request.cookies.get('timestamp_id'))
+	return render_template('review/review_thank.html', prev_result = request.cookies.get('timestamp_id'))
