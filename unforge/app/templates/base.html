@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}UnForge{% endblock %}</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div id="nav">
+		<ul>
+		  <li><a href="/">UnForge<span style="font-size: 10px">(beta)</span></a></li>
+		  <li><a href="/find_plagiarism">Try here</a></li>
+		  <li><a href="/_unforge">API</a></li>
+		  {% if prev_result %}<li><a href="/result">Previous Result</a></li>{% endif%}
+		  {% if 'logged_in' in session%}
+		  <li style="float: right;padding-right: 30px;" ><a href="/logout" >Logout</a></li>
+		  <li style="float: right;padding-right: 30px;" >
+		  	<div class="dropdown">
+		      <button class="dropbtn">Dropdown 
+		        <i class="fa fa-caret-down"></i>
+		      </button>
+			    <div class="dropdown-content">
+			      <a href="#">Link 1</a>
+			      <a href="#">Link 2</a>
+			      <a href="#">Link 3</a>
+			    </div>
+		  </li>
+		  {% else %}
+		  <li style="float: right;padding-right: 50px;" ><a href="/login" >LogIn/SignUp</a></li>
+		  {% endif %}
+
+		  <li style="float: right" ><a href="/review" >Write Your Review 😁</a></li>
+		</ul>
+	</div>
+	<div style="padding: 1px; margin: 10px; margin-left: 20px;">
+{% block content %}
+{% endblock %}
+</div>
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
+
+		body {
+		  margin: 0;
+		  padding: 0; 
+		}
+
+		a {
+		  color: #666;
+		  text-decoration: none; }
+		  a:hover {
+		    color: #4FDA8C; }
+
+		body {
+		  color: #666;
+		  background-color: #f1f2f2;
+		  font: 16px/26px "Raleway", sans-serif; }
+		
+		#nav ul {
+		  list-style-type: none;
+		  margin: 0;
+		  padding: 0;
+		  overflow: hidden;
+		  background-color: #333;
+		}
+
+		#nav li {
+		  float: left;
+		}
+
+		#nav li a {
+		  display: block;
+		  color: white;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		}
+
+		#nav li a:hover {
+		  background-color: #46ABC4;
+		}
+	</style>
+</body>
+</html>

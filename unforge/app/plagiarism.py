@@ -4,7 +4,7 @@ from .drive import find_plagiarism, UnForgeInputError
 from datetime import datetime, timedelta
 import json
 from boto3.dynamodb.conditions import Key
-from .db_init import data_table, review_table
+from .db_init import data_table, review_table, _save_space
 from .decorators import login_required
 
 plag = Blueprint('Plagiarism', __name__)

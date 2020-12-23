@@ -1,4 +1,4 @@
-SECRET_KEY = 'add_your_secret_key'
+SECRET_KEY = 'unknown'
 DEBUG = True
 ENV = 'development'
 SSL_CONTEXT = 'adhoc'

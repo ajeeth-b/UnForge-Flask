@@ -8,11 +8,11 @@ auth = Blueprint('Authentication', __name__)
 
 @auth.route('/signup/', methods = ['GET'])
 def get_signup_page():
-	return render_template('authentication/signup_login.html')
+	return render_template('authentication/signup_login.html'), 200
 
 @auth.route('/login/', methods = ['GET'])
 def get_login_page():	
-	return render_template('authentication/signup_login.html', login = "active" )
+	return render_template('authentication/signup_login.html', login = "active" ), 200
 
 def create_session(user):
 	del user['password']
@@ -31,7 +31,7 @@ def signup():
 
 	if not all([i in request.form for i in ['email','name','password']]):
 		flash("Please fill all the feilds.",'signup-error')
-		return render_template('authentication/signup_login.html')
+		return render_template('authentication/signup_login.html'), 400
 
 
 	result = user_table.query(
@@ -39,7 +39,7 @@ def signup():
 		)
 	if result['Items']:
 		flash('User alredy exist.Please login.','login-error')
-		return render_template('authentication/signup_login.html', login='active')
+		return render_template('authentication/signup_login.html', login='active'), 303
 
 
 	user_item = {
@@ -54,21 +54,20 @@ def signup():
 	return redirect('/find_plagiarism')
 
 
-
 @auth.route('/login', methods = ['POST'])
 def login():
 	delete_session()
 
 	if 'email' not in request.form or 'password' not in request.form:
 		flash('Please fill all the fields.','login-error')
-		return render_template('authentication/signup_login.html', login='active')
+		return render_template('authentication/signup_login.html', login='active'), 400
 
 	result = user_table.query(
 		KeyConditionExpression=Key('mail').eq(request.form['email'])
 		)
 	if not result['Items']:
 		flash('No such user in UnForge. Please signup.','signup-error')
-		return render_template('authentication/signup_login.html')
+		return render_template('authentication/signup_login.html'), 303
 
 	user  = result['Items'][0]
 	if user['password'] != request.form['password']:
@@ -76,7 +75,6 @@ def login():
 		return render_template('authentication/signup_login.html', login='active')
 	create_session(user)
 	return redirect('/find_plagiarism')
-
 
 @auth.route('/logout/')
 @login_required
